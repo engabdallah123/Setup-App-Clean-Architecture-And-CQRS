@@ -8,14 +8,9 @@ This project is a **Clean Architecture** implementation with **CQRS** pattern. A
 - CQRS (Command Query Responsibility Segregation) implemented  
 - Unified Request and Response messages  
 - Easy to extend and maintain  
-- Ready for .NET 9  
+- Ready for .NET 9
 
----
-
-## Getting Started
-
-These instructions will help you get a copy of the project running on your local machine.
-
+  
 ---
 
 ### Pull the Project

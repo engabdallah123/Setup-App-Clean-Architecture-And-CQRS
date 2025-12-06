@@ -3,6 +3,7 @@ using Application;
 using Domain.Entities;
 using Domain.Interfaces;
 using Infrastructure;
+using Infrastructure.Dependency;
 using Infrastructure.Repositories;
 using Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Identity;
@@ -21,24 +22,21 @@ namespace WebAPI
             builder.Services.AddAuthorization();
             builder.Services.AddOpenApi();
 
-            // Db Context
-            builder.Services.AddDbContext<ApplicationDBContext>(option =>
+            // Identity
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
-                option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => 
-            { 
                 options.Password.RequiredLength = 4;
-                options.Password.RequireDigit = false;  
-                options.Password.RequireUppercase = false; 
-                options.Password.RequireLowercase = false; 
-                options.Password.RequireNonAlphanumeric = false; 
-            }) 
+                options.Password.RequireDigit = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+            })
              .AddEntityFrameworkStores<ApplicationDBContext>()
              .AddDefaultTokenProviders();
 
-            // application layer
-            builder.Services.AddApplication();
+            // layers
+            builder.Services.AddApplication()
+                            .AddInfrastructure(builder.Configuration);
 
             // add services 
             builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));

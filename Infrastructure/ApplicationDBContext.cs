@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Infrastructure.Dependency;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
